@@ -2,13 +2,25 @@ import React, { useState } from "react";
 import "./Todo.css";
 import List from "./List";
 import TodoForm from "./TodoForm";
+import Item from './Item'
 
 export default function Todo() {
 
     const [items, setItems] = useState([]);
 
-    function onAddItem(item) {
-        setItems([...items, item]);
+    function onAddItem(text) {
+
+        let it = new Item(text)
+
+        setItems([...items, it]);
+    }
+
+    function onItemDeleted(item) {
+
+        let filteredItems = items.filter(it => it.id !== item.id)
+
+        setItems(filteredItems)
+
     }
 
     return (
@@ -18,7 +30,7 @@ export default function Todo() {
 
             <TodoForm onAddItem={onAddItem}></TodoForm>
 
-            <List items={items}></List>
+            <List  onItemDeleted={onItemDeleted} items={items}></List>
 
         </div>
 
