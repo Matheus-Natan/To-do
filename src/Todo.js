@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Todo.css";
-import List from "./List";
-import TodoForm from "./TodoForm";
-import Item from './Item'
+import List from "./components/List";
+import TodoForm from "./components/TodoForm";
+import Item from './components/Item'
 
 export default function Todo() {
 
@@ -23,6 +23,19 @@ export default function Todo() {
 
     }
 
+    function onDone(item) {
+
+        let updateItems = items.map(it => {
+            if (it.id === item.id) {
+                it.done = !it.done;
+            }
+            return it
+        })
+
+        setItems(updateItems);
+
+    }
+
     return (
 
         <div className="container">
@@ -30,7 +43,7 @@ export default function Todo() {
 
             <TodoForm onAddItem={onAddItem}></TodoForm>
 
-            <List  onItemDeleted={onItemDeleted} items={items}></List>
+            <List onDone={onDone}  onItemDeleted={onItemDeleted} items={items}></List>
 
         </div>
 
