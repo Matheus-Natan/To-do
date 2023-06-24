@@ -20,9 +20,9 @@ export default function TodoForm(props) {
     }
 
     return (
-        <form>
-            <input onChange={handleChange} type="text" value={text}></input>
-            <button onClick={addItem}>Add</button>
+        <form className="addForm">
+            <input className="addInput" onChange={handleChange} type="text" value={text}></input>
+            <button className="addButton" onClick={addItem}>+</button>
         </form>
     )
 }

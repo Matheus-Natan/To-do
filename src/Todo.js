@@ -3,10 +3,13 @@ import "./Todo.css";
 import List from "./components/List";
 import TodoForm from "./components/TodoForm";
 import Item from './components/Item'
+import Modal from "./components/Modal";
 
 const SAVED_ITEMS = "savedItems"
 
 export default function Todo() {
+
+    const [showModal, setShowModal] = useState(false);
 
     const [items, setItems] = useState([]);
 
@@ -26,6 +29,8 @@ export default function Todo() {
         let it = new Item(text)
 
         setItems([...items, it]);
+
+        onHideModal();
     }
 
     function onItemDeleted(item) {
@@ -49,14 +54,21 @@ export default function Todo() {
 
     }
 
+    function onHideModal() {
+        setShowModal(false)
+    }
+
     return (
 
         <div className="container">
-            <h1>To-do List</h1>
-
-            <TodoForm onAddItem={onAddItem}></TodoForm>
+            <header className="header">
+                <h1>To-do List</h1>
+                <button onClick={() => { setShowModal(true) }} className="addButton">+</button>
+            </header>
 
             <List onDone={onDone} onItemDeleted={onItemDeleted} items={items}></List>
+
+            <Modal show={showModal} onHideModal={onHideModal}><TodoForm onAddItem={onAddItem}></TodoForm></Modal>
 
         </div>
 
